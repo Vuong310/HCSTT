@@ -1,0 +1,46 @@
+CREATE DATABASE IF NOT EXISTS chatbot;
+USE chatbot;
+CREATE TABLE IF NOT EXISTS Topics(
+    id_chude INT PRIMARY KEY AUTO_INCREMENT,
+    ten_chude VARCHAR(50),
+    mo_ta TEXT
+);
+CREATE TABLE IF NOT EXISTS Questions(
+    id_cauhoi INT PRIMARY KEY AUTO_INCREMENT,
+    id_chude INT,
+    noi_dung TEXT,
+    Foreign Key (id_chude) REFERENCES Topics(id_chude)
+);
+CREATE TABLE IF NOT EXISTS Conclusions(
+    id_ketluan INT PRIMARY KEY AUTO_INCREMENT,
+    id_chude INT,
+    noi_dung TEXT,
+    loi_khuyen TEXT, -- huong dan xu ly kem theo
+    Foreign Key (id_chude) REFERENCES Topics(id_chude)
+);
+CREATE TABLE IF NOT EXISTS Rules(
+    id_luat INT PRIMARY KEY AUTO_INCREMENT,
+    id_cauhoi_ht INT,
+    gia_tri_tra_loi VARCHAR(50), --lua chon cua nguoi dung
+    id_cauhoi_tiep_theo INT,
+    id_ketluan INT,
+    Foreign Key (id_cauhoi_ht) REFERENCES Questions(id_cauhoi),
+    Foreign Key (id_cauhoi_tiep_theo) REFERENCES Questions(id_cauhoi),
+    Foreign Key (id_ketluan) REFERENCES Conclusions(id_ketluan)
+);
+CREATE TABLE IF NOT EXISTS UserSessions(
+    fb_user_id VARCHAR(255) PRIMARY KEY,
+    id_chude_dang_chon INT,
+    id_cauhoi_vua_tl INT,
+    trang_thai INT,
+    Foreign Key (id_chude_dang_chon) REFERENCES Topics(id_chude),
+    Foreign Key (id_cauhoi_vua_tl) REFERENCES Questions(id_cauhoi)
+);
+
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE UserSessions;
+TRUNCATE TABLE Rules;
+TRUNCATE TABLE Conclusions;
+TRUNCATE TABLE Questions;
+TRUNCATE TABLE Topics;
+SET FOREIGN_KEY_CHECKS = 1;

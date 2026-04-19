@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS Conclusions(
 CREATE TABLE IF NOT EXISTS Rules(
     id_luat INT PRIMARY KEY AUTO_INCREMENT,
     id_cauhoi_ht INT,
-    gia_tri_tra_loi VARCHAR(50), --lua chon cua nguoi dung
+    gia_tri_tra_loi VARCHAR(50), -- lua chon cua nguoi dung
     id_cauhoi_tiep_theo INT,
     id_ketluan INT,
     Foreign Key (id_cauhoi_ht) REFERENCES Questions(id_cauhoi),
@@ -44,3 +44,68 @@ TRUNCATE TABLE Conclusions;
 TRUNCATE TABLE Questions;
 TRUNCATE TABLE Topics;
 SET FOREIGN_KEY_CHECKS = 1;
+
+INSERT INTO Topics (id_chude, ten_chude, mo_ta) VALUES 
+(1, 'Kỹ thuật máy tính', 'Chẩn đoán lỗi mạng và phần cứng máy tính'),
+(2, 'Thế giới động vật', 'Phân loại các loài động vật theo đặc điểm sinh học'),
+(3, 'Tư vấn điện thoại', 'Tư vấn chọn mua smartphone theo nhu cầu cá nhân'),
+(4, 'Tư vấn thời trang', 'Tư vấn phối đồ theo phong cách cá nhân và dáng người');
+
+INSERT INTO Questions (id_cauhoi, id_chude, noi_dung) VALUES 
+-- Kỹ thuật máy tính
+(101, 1, 'Đèn báo Internet trên cục Router có đang sáng màu xanh không?'),
+(102, 1, 'Bạn có truy cập được vào trang web Google.com không?'),
+(103, 1, 'Dây cáp quang sau lưng Router có bị gập gãy vỡ không?'),
+-- Thế giới động vật
+(201, 2, 'Động vật này chủ yếu sống ở đâu? (Dưới nước / Trên cạn)'),
+(202, 2, 'Nó có thở bằng mang không? (Có / Không)'),
+(203, 2, 'Nó có lông vũ để bay không? (Có / Không)'),
+-- Tư vấn điện thoại
+(301, 3, 'Ngân sách của bạn khoảng bao nhiêu? (Dưới 10 triệu / Trên 10 triệu)'),
+(302, 3, 'Bạn ưu tiên cấu hình mạnh hay camera đẹp? (Chơi game / Chụp ảnh)'),
+(303, 3, 'Bạn thích sử dụng hệ điều hành nào hơn? (iOS / Android)'),
+-- Tư vấn thời trang
+(401, 4, 'Bạn ưu tiên phong cách nào nhất? (Năng động / Thanh lịch)'),
+(402, 4, 'Bạn có thích mặc quần ống rộng (barrel jeans) không? (Có / Không)'),
+(403, 4, 'Bạn thường mặc trang phục này đi đâu? (Đi làm / Xuống phố)');
+
+INSERT INTO  Conclusions(id_ketluan, id_chude, noi_dung, loi_khuyen) VALUES 
+-- Kỹ thuật máy tính
+(11, 1, 'Mạng hoạt động bình thường.', 'Có thể trang web bạn vào bị sập. Hãy thử lại sau.'),
+(12, 1, 'Lỗi cấu hình DNS/IP.', 'Hãy đổi DNS sang 8.8.8.8 hoặc để IP ở chế độ tự động.'),
+(13, 1, 'Cáp quang bị đứt vật lý.', 'Hãy gọi tổng đài nhà mạng để cử kỹ thuật viên nối lại cáp.'),
+(14, 1, 'Lỗi tín hiệu nhà mạng.', 'Thử khởi động lại Router hoặc chờ nhà mạng bảo trì.'),
+-- Thế giới động vật
+(21, 2, 'Đây là loài CÁ.', 'Ví dụ: Cá mập, cá chép...'),
+(22, 2, 'Đây là THÚ BIỂN.', 'Ví dụ: Cá heo, cá voi... thở bằng phổi.'),
+(23, 2, 'Đây là LOÀI CHIM.', 'Ví dụ: Đại bàng, chim sẻ...'),
+(24, 2, 'Đây là THÚ TRÊN CẠN.', 'Ví dụ: Hổ, mèo, chó...'),
+-- Tư vấn điện thoại
+(31, 3, 'Dòng Xiaomi hoặc POCO.', 'Cấu hình mạnh, tản nhiệt tốt, phù hợp chơi game.'),
+(32, 3, 'Dòng OPPO hoặc Vivo.', 'Camera selfie AI đẹp, thiết kế thời trang.'),
+(33, 3, 'Dòng iPhone (Apple).', 'Hệ điều hành mượt mà, ổn định lâu dài.'),
+(34, 3, 'Dòng Samsung Galaxy S.', 'Màn hình đẹp, camera zoom tốt và đa dụng.'),
+-- Tư vấn thời trang
+(41, 4, 'Phong cách Streetwear.', 'Phối quần barrel jeans với áo phông oversize và sneaker.'),
+(42, 4, 'Phong cách Sporty.', 'Kết hợp áo hoodie, quần nỉ và giày chạy bộ.'),
+(43, 4, 'Phong cách Office Chic.', 'Áo sơ mi lụa kết hợp quần tây ống đứng chuyên nghiệp.'),
+(44, 4, 'Phong cách Minimalism.', 'Gam màu trung tính, thiết kế tối giản nhưng tinh tế.');
+
+INSERT INTO Rules (id_luat, id_cauhoi_ht, gia_tri_tra_loi, id_cauhoi_tiep_theo, id_ketluan) VALUES 
+-- Kỹ thuật máy tính
+(1, 101, 'Có', 102, NULL), (2, 101, 'Không', 103, NULL),
+(3, 102, 'Có', NULL, 11),  (4, 102, 'Không', NULL, 12),
+(5, 103, 'Có', NULL, 13),  (6, 103, 'Không', NULL, 14),
+-- Thế giới động vật
+(10, 201, 'Dưới nước', 202, NULL), (11, 201, 'Trên cạn', 203, NULL),
+(12, 202, 'Có', NULL, 21),        (13, 202, 'Không', NULL, 22),
+(14, 203, 'Có', NULL, 23),        (15, 203, 'Không', NULL, 24),
+-- Tư vấn điện thoại
+(20, 301, 'Dưới 10 triệu', 302, NULL), (21, 301, 'Trên 10 triệu', 303, NULL),
+(22, 302, 'Chơi game', NULL, 31),      (23, 302, 'Chụp ảnh', NULL, 32),
+(24, 303, 'iOS', NULL, 33),            (25, 303, 'Android', NULL, 34),
+-- Tư vấn thời trang
+(30, 401, 'Năng động', 402, NULL), (31, 401, 'Thanh lịch', 403, NULL),
+(32, 402, 'Có', NULL, 41),        (33, 402, 'Không', NULL, 42),
+(34, 403, 'Đi làm', NULL, 43),     (35, 403, 'Xuống phố', NULL, 44);
+

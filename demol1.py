@@ -1,3 +1,7 @@
+import sys
+import io
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
 import mysql.connector
 
 def connect_db():
@@ -6,7 +10,7 @@ def connect_db():
     conn = mysql.connector.connect(
         host="localhost",
         user="root",          # Tên đăng nhập MySQL (thường mặc định là root)
-        password="Tamihaya198", # <--- NHẬP MẬT KHẨU MYSQL CỦA BẠN VÀO ĐÂY
+        password="30122005", # <--- NHẬP MẬT KHẨU MYSQL CỦA BẠN VÀO ĐÂY
         database="chatbot"    # Tên database đã tạo ở lệnh 'USE chatbot;'
     )
     return conn

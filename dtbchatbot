@@ -49,63 +49,145 @@ INSERT INTO Topics (id_chude, ten_chude, mo_ta) VALUES
 (1, 'Kỹ thuật máy tính', 'Chẩn đoán lỗi mạng và phần cứng máy tính'),
 (2, 'Thế giới động vật', 'Phân loại các loài động vật theo đặc điểm sinh học'),
 (3, 'Tư vấn điện thoại', 'Tư vấn chọn mua smartphone theo nhu cầu cá nhân'),
-(4, 'Tư vấn thời trang', 'Tư vấn phối đồ theo phong cách cá nhân và dáng người');
+(4, 'Tư vấn thời trang', 'Tư vấn phối đồ theo phong cách cá nhân và dáng người'),
+(5, 'Tư vấn ẩm thực', 'Tư vấn món ăn và công thức nấu ăn theo sở thích và nguyên liệu có sẵn');
 
 INSERT INTO Questions (id_cauhoi, id_chude, noi_dung) VALUES 
 -- Kỹ thuật máy tính
 (101, 1, 'Đèn báo Internet trên cục Router có đang sáng màu xanh không?'),
 (102, 1, 'Bạn có truy cập được vào trang web Google.com không?'),
 (103, 1, 'Dây cáp quang sau lưng Router có bị gập gãy vỡ không?'),
+(104, 1, 'Máy tính của bạn có lên nguồn (sáng đèn/quạt quay) không? (Có / Không)'),
+(105, 1, 'Màn hình có hiện chữ hay thông báo gì không, hay chỉ một màu đen? (Có chữ / Đen xì)'),
+(106, 1, 'Máy tính có phát ra tiếng kêu "tít tít" liên tục không? (Có / Không)'),
+(107, 1, 'Máy chạy chậm là do mới bị gần đây hay bị từ lâu rồi? (Mới bị / Từ lâu)'),
+(108, 1, 'Bạn có vừa cài đặt phần mềm lạ nào từ mạng không? (Có / Không)'),
 -- Thế giới động vật
 (201, 2, 'Động vật này chủ yếu sống ở đâu? (Dưới nước / Trên cạn)'),
 (202, 2, 'Nó có thở bằng mang không? (Có / Không)'),
 (203, 2, 'Nó có lông vũ để bay không? (Có / Không)'),
+(204, 2, 'Nó có lớp da trần, ẩm ướt và sống được cả hai nơi không? (Có / Không)'),
+(205, 2, 'Cơ thể nó có vảy cứng và thường bò sát mặt đất đúng không? (Có / Không)'),
+(206, 2, 'Động vật này có túi trước bụng để nuôi con không? (Có / Không)'),
+(207, 2, 'Nó có kích thước khổng lồ và giao tiếp bằng sóng siêu âm dưới biển? (Có / Không)'),
 -- Tư vấn điện thoại
 (301, 3, 'Ngân sách của bạn khoảng bao nhiêu? (Dưới 10 triệu / Trên 10 triệu)'),
 (302, 3, 'Bạn ưu tiên cấu hình mạnh hay camera đẹp? (Chơi game / Chụp ảnh)'),
 (303, 3, 'Bạn thích sử dụng hệ điều hành nào hơn? (iOS / Android)'),
+(304, 3, 'Bạn có cần bút S-Pen để ghi chú công việc không? (Có / Không)'),
+(305, 3, 'Bạn thích máy nhỏ gọn (6.1 inch) hay màn hình cực đại? (Nhỏ / Lớn)'),
+(306, 3, 'Bạn có đang dùng iPad hay Macbook không? (Có / Không)'),
+(307, 3, 'Bạn muốn trải nghiệm màn hình gập mở như máy tính bảng không? (Có / Không)'),
+(308, 3, 'Bạn ưu tiên sạc siêu nhanh (30p đầy pin) hay sạc không dây? (Sạc nhanh / Sạc không dây)'),
 -- Tư vấn thời trang
 (401, 4, 'Bạn ưu tiên phong cách nào nhất? (Năng động / Thanh lịch)'),
 (402, 4, 'Bạn có thích mặc quần ống rộng (barrel jeans) không? (Có / Không)'),
-(403, 4, 'Bạn thường mặc trang phục này đi đâu? (Đi làm / Xuống phố)');
+(403, 4, 'Bạn thường mặc trang phục này đi đâu? (Đi làm / Xuống phố)'),
+(404, 4, 'Dáng người bạn thiên về kiểu nào? (Người gầy / Người tròn)'),
+(405, 4, 'Bạn muốn phối với giày gì? (Sneaker / Giày da)'),
+(406, 4, 'Bạn thích tông màu trầm tối hay tông màu sáng nổi bật? (Trầm / Sáng)'),
+(407, 4, 'Bạn ưu tiên chất liệu thoải mái (Cotton) hay chất liệu đứng form (Linen/Kaki)? (Cotton / Kaki)'),
+-- Tư vấn ẩm thực
+(501, 5, 'Bạn muốn ăn món gì? (Món Việt / Món Tây)'),
+(502, 5, 'Bạn có thích ăn cay không? (Có / Không)'),
+(503, 5, 'Bạn có sẵn nguyên liệu nào trong tủ lạnh không? (Có / Không)'),
+(504, 5, 'Bạn muốn nấu món nhanh gọn hay sẵn sàng đầu tư thời gian? (Nhanh / Đầu tư)'),
+(505, 5, 'Bạn có cần công thức nấu ăn chi tiết từng bước không? (Có / Không)'),
+(506, 5, 'Bạn có muốn gợi ý thêm về cách trang trí món ăn không? (Có / Không)'),
+(507, 5, 'Bạn muốn món ăn này phù hợp cho dịp gì? (Ăn hàng ngày / Tiệc tùng)'),
+(508, 5, 'Bạn có muốn kết hợp món này với loại đồ uống nào không? (Có / Không)');
 
-INSERT INTO  Conclusions(id_ketluan, id_chude, noi_dung, loi_khuyen) VALUES 
+INSERT INTO  Conclusions (id_ketluan, id_chude, noi_dung, loi_khuyen) VALUES 
 -- Kỹ thuật máy tính
 (11, 1, 'Mạng hoạt động bình thường.', 'Có thể trang web bạn vào bị sập. Hãy thử lại sau.'),
 (12, 1, 'Lỗi cấu hình DNS/IP.', 'Hãy đổi DNS sang 8.8.8.8 hoặc để IP ở chế độ tự động.'),
 (13, 1, 'Cáp quang bị đứt vật lý.', 'Hãy gọi tổng đài nhà mạng để cử kỹ thuật viên nối lại cáp.'),
 (14, 1, 'Lỗi tín hiệu nhà mạng.', 'Thử khởi động lại Router hoặc chờ nhà mạng bảo trì.'),
+(15, 1, 'Lỗi lỏng RAM hoặc hỏng RAM.', 'Hãy tháo máy, vệ sinh chân RAM bằng thanh tẩy (gôm) rồi cắm chặt lại.'),
+(16, 1, 'Lỗi nguồn hoặc Mainboard.', 'Kiểm tra lại dây sạc/nguồn. Nếu vẫn không lên, cần mang ra tiệm kiểm tra linh kiện.'),
+(17, 1, 'Máy bị nhiễm Malware/Virus.', 'Hãy ngắt mạng, quét virus bằng Windows Defender hoặc cài lại Win nếu cần.'),
+(18, 1, 'Ổ cứng bị đầy hoặc bị phân mảnh.', 'Hãy dọn dẹp rác hệ thống, gỡ ứng dụng thừa hoặc nâng cấp lên ổ SSD.'),
+(19, 1, 'Lỗi Card đồ họa hoặc cáp màn hình.', 'Thử kết nối máy tính với một màn hình rời khác để kiểm tra.'),
 -- Thế giới động vật
 (21, 2, 'Đây là loài CÁ.', 'Ví dụ: Cá mập, cá chép...'),
 (22, 2, 'Đây là THÚ BIỂN.', 'Ví dụ: Cá heo, cá voi... thở bằng phổi.'),
 (23, 2, 'Đây là LOÀI CHIM.', 'Ví dụ: Đại bàng, chim sẻ...'),
 (24, 2, 'Đây là THÚ TRÊN CẠN.', 'Ví dụ: Hổ, mèo, chó...'),
+(25, 2, 'Đây là lớp LƯỠNG CƯ (Ếch, Nhái).', 'Chúng thường đẻ trứng dưới nước và hít thở qua da khi trưởng thành.'),
+(26, 2, 'Đây là lớp BÒ SÁT (Thằn lằn, Cá sấu).', 'Chúng là động vật biến nhiệt, cần sưởi nắng để duy trì thân nhiệt.'),
+(27, 2, 'Đây là THÚ CÓ TÚI (Kangaroo, Koala).', 'Hầu hết các loài này sống tập trung ở Úc.'),
+(28, 2, 'Đây là ĐỘNG VẬT KHÔNG XƯƠNG SỐNG.', 'Ví dụ: Côn trùng, san hô, sứa...'),
+(29, 2, 'Đây là ĐỘNG VẬT KHỔNG LỒ.', 'Ví dụ: Cá voi xanh, cá mập trắng lớn...'),
 -- Tư vấn điện thoại
 (31, 3, 'Dòng Xiaomi hoặc POCO.', 'Cấu hình mạnh, tản nhiệt tốt, phù hợp chơi game.'),
 (32, 3, 'Dòng OPPO hoặc Vivo.', 'Camera selfie AI đẹp, thiết kế thời trang.'),
 (33, 3, 'Dòng iPhone (Apple).', 'Hệ điều hành mượt mà, ổn định lâu dài.'),
 (34, 3, 'Dòng Samsung Galaxy S.', 'Màn hình đẹp, camera zoom tốt và đa dụng.'),
+(35, 3, 'Samsung Galaxy S24 Ultra.', 'Sự lựa chọn tốt nhất cho công việc và ghi chú.'),
+(36, 3, 'iPhone 15 Pro hoặc Galaxy S24.', 'Nhỏ gọn nhưng hiệu năng vẫn cực kỳ mạnh mẽ.'),
+(37, 3, 'iPhone 15 Pro Max (Hệ sinh thái Apple).', 'Phù hợp nhất vì đồng bộ dữ liệu cực tốt với thiết bị bạn đang có.'),
+(38, 3, 'Samsung Galaxy Z Fold 5.', 'Vừa là điện thoại vừa là máy tính bảng, cực đỉnh cho đa nhiệm.'),
 -- Tư vấn thời trang
 (41, 4, 'Phong cách Streetwear.', 'Phối quần barrel jeans với áo phông oversize và sneaker.'),
 (42, 4, 'Phong cách Sporty.', 'Kết hợp áo hoodie, quần nỉ và giày chạy bộ.'),
 (43, 4, 'Phong cách Office Chic.', 'Áo sơ mi lụa kết hợp quần tây ống đứng chuyên nghiệp.'),
-(44, 4, 'Phong cách Minimalism.', 'Gam màu trung tính, thiết kế tối giản nhưng tinh tế.');
+(44, 4, 'Phong cách Minimalism.', 'Gam màu trung tính, thiết kế tối giản nhưng tinh tế.'),
+(45, 4, 'Phong cách Layering (Nhiều lớp).', 'Mặc thêm áo khoác ngoài để trông đầy đặn và thời trang hơn.'),
+(46, 4, 'Phong cách Smart Casual.', 'Áo thun polo phối quần tây và giày da, vừa trẻ trung vừa lịch sự.'),
+(47, 4, 'Phong cách Bohemian.', 'Sử dụng váy maxi, áo peasant và phụ kiện tua rua để tạo vẻ tự do, phóng khoáng.'),
+(48, 4, 'Phong cách Vintage.', 'Tận dụng quần áo cũ hoặc thiết kế retro để tạo nên phong cách hoài cổ nhưng vẫn thời thượng.'),
+(49, 4, 'Phong cách Preppy.', 'Áo len cổ lọ kết hợp với chân váy xếp ly và giày loafer cho vẻ ngoài thanh lịch, học đường.'),
+-- Tư vấn ẩm thực
+(51, 5, 'Món Phở Bò / Bún Thang.', 'Món nước đậm đà, phù hợp ăn hàng ngày và bồi bổ sức khỏe.'),
+(52, 5, 'Món Bít tết sốt rượu vang.', 'Phù hợp cho không gian tiệc tùng sang trọng và người thích ăn thịt bò.'),
+(53, 5, 'Món Salad ức gà / Mì Ý sốt kem.', 'Các món Tây nhanh gọn, dễ nấu và rất hiện đại.'),
+(54, 5, 'Món Gỏi cuốn / Nem rán.', 'Món Việt truyền thống, tận dụng tốt nguyên liệu tươi có sẵn trong tủ lạnh.'),
+(55, 5, 'Món Lẩu Thái / Đồ nướng cay.', 'Phù hợp cho dịp tụ tập đông người và thích hương vị mạnh.'),
+(56, 5, 'Món Cơm chiên dương châu / Mì xào hải sản.', 'Các món này có công thức đơn giản nhưng vẫn rất ngon miệng.'),
+(57, 5, 'Món Bánh mì kẹp thịt / Bánh mì chảo.', 'Phù hợp cho bữa sáng hoặc bữa trưa nhanh gọn.'),
+(58, 5, 'Món Chè ba màu / Kem dừa.', 'Các món tráng miệng mát lạnh, phù hợp cho ngày hè và người thích ăn ngọt.');
 
 INSERT INTO Rules (id_luat, id_cauhoi_ht, gia_tri_tra_loi, id_cauhoi_tiep_theo, id_ketluan) VALUES 
 -- Kỹ thuật máy tính
-(1, 101, 'Có', 102, NULL), (2, 101, 'Không', 103, NULL),
-(3, 102, 'Có', NULL, 11),  (4, 102, 'Không', NULL, 12),
-(5, 103, 'Có', NULL, 13),  (6, 103, 'Không', NULL, 14),
+(1, 101, 'Có', 102, NULL),          (2, 101, 'Không', 104, NULL),
+(3, 102, 'Có', 107, NULL),          (4, 102, 'Không', 103, NULL),
+(5, 103, 'Có', NULL, 13),           (6, 103, 'Không', NULL, 14),
+(7, 104, 'Có', 105, NULL),          (8, 104, 'Không', NULL, 16),
+(9, 105, 'Có chữ', NULL, 11),       (10, 105, 'Đen xì', 106, NULL),
+(11, 106, 'Có', NULL, 15),          (12, 106, 'Không', NULL, 19),
+(13, 107, 'Mới bị', 108, NULL),     (14, 107, 'Từ lâu', NULL, 18),
+(15, 108, 'Có', NULL, 17),          (16, 108, 'Không', NULL, 18),
 -- Thế giới động vật
-(10, 201, 'Dưới nước', 202, NULL), (11, 201, 'Trên cạn', 203, NULL),
-(12, 202, 'Có', NULL, 21),        (13, 202, 'Không', NULL, 22),
-(14, 203, 'Có', NULL, 23),        (15, 203, 'Không', NULL, 24),
+(17, 201, 'Dưới nước', 202, NULL),  (18, 201, 'Trên cạn', 203, NULL),
+(19, 202, 'Có', NULL, 21),          (20, 202, 'Không', 207, NULL),
+(21, 207, 'Có', NULL, 29),          (22, 207, 'Không', NULL, 22),
+(23, 203, 'Có', NULL, 23),          (24, 203, 'Không', 204, NULL),
+(25, 204, 'Có', NULL, 25),          (26, 204, 'Không', 205, NULL),
+(27, 205, 'Có', NULL, 26),          (28, 205, 'Không', 206, NULL),
+(29, 206, 'Có', NULL, 27),          (30, 206, 'Không', NULL, 24),
 -- Tư vấn điện thoại
-(20, 301, 'Dưới 10 triệu', 302, NULL), (21, 301, 'Trên 10 triệu', 303, NULL),
-(22, 302, 'Chơi game', NULL, 31),      (23, 302, 'Chụp ảnh', NULL, 32),
-(24, 303, 'iOS', NULL, 33),            (25, 303, 'Android', NULL, 34),
+(31, 301, 'Dưới 10 triệu', 302, NULL),  (32, 301, 'Trên 10 triệu', 303, NULL),
+(33, 302, 'Chơi game', NULL, 31),       (34, 302, 'Chụp ảnh', NULL, 32),
+(35, 303, 'iOS', 306, NULL),            (36, 303, 'Android', 304, NULL),
+(37, 304, 'Có', NULL, 35),              (38, 304, 'Không', 307, NULL),
+(39, 307, 'Có', NULL, 38),              (40, 307, 'Không', 308, NULL),
+(41, 308, 'Sạc nhanh', NULL, 34),       (42, 308, 'Sạc không dây', NULL, 34),
+(43, 306, 'Có', NULL, 37),              (44, 306, 'Không', 305, NULL),
+(45, 305, 'Nhỏ', NULL, 36),             (46, 305, 'Lớn', NULL, 33),
 -- Tư vấn thời trang
-(30, 401, 'Năng động', 402, NULL), (31, 401, 'Thanh lịch', 403, NULL),
-(32, 402, 'Có', NULL, 41),        (33, 402, 'Không', NULL, 42),
-(34, 403, 'Đi làm', NULL, 43),     (35, 403, 'Xuống phố', NULL, 44);
-
+(47, 401, 'Năng động', 402, NULL),      (48, 401, 'Thanh lịch', 403, NULL),
+(49, 402, 'Có', NULL, 41),              (50, 402, 'Không', 404, NULL),
+(51, 403, 'Đi làm', 405, NULL),         (52, 403, 'Xuống phố', 404, NULL),
+(53, 405, 'Sneaker', NULL, 42),         (54, 405, 'Giày da', NULL, 46),
+(55, 404, 'Người gầy', NULL, 45),       (56, 404, 'Người tròn', 406, NULL),
+(57, 406, 'Trầm', NULL, 44),            (58, 406, 'Sáng', 407, NULL),
+(59, 407, 'Cotton', NULL, 42),          (60, 407, 'Kaki', NULL, 49),
+-- Tư vấn ẩm thực
+(61, 501, 'Món Việt', 502, NULL),       (62, 501, 'Món Tây', 504, NULL),
+(63, 502, 'Có', 507, NULL),             (64, 502, 'Không', 503, NULL),
+(65, 503, 'Có', 506, NULL),             (66, 503, 'Không', NULL, 51),
+(67, 506, 'Có', NULL, 54),              (68, 506, 'Không', NULL, 56),
+(69, 507, 'Tiệc tùng', NULL, 55),       (70, 507, 'Ăn hàng ngày', NULL, 51),
+(71, 504, 'Nhanh', 505, NULL),          (72, 504, 'Đầu tư', 508, NULL),
+(73, 505, 'Có', 506, NULL),             (74, 505, 'Không', NULL, 57),
+(75, 508, 'Có', NULL, 52),              (76, 508, 'Không', NULL, 53);

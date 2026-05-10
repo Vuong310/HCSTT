@@ -5,7 +5,7 @@ import mysql.connector
 app = Flask(__name__)
 
 # --- CẤU HÌNH FACEBOOK ---
-PAGE_ACCESS_TOKEN = 'EAAzRK4mXReABRQE8zo70qGRf7t4Vmk55dnV7JurDbyJ8uESuLbzjgDWnZCD6Sa0i5rZBIvbmmm6Uh2FjpEEHmlpPaAnZCmuZBmvxu7CX7mAzQRU5OZBvFNchIzShSzVZCPbCkceuTZCsvW4qYEtLS5KBxSCZBO36dWgd8OGfRNlVUt3a0OcWnN9b7mfj7u71Tg5y1hEK3M28yHZBepOwO9O7kDgZDZD'
+PAGE_ACCESS_TOKEN = 'EAAzRK4mXReABRTZC4ZBrA7DzQOsP0lXgOP8TbBKSU8X4VifOH4BwmSE0VZCR05ea3k4VWoDOrhbkQC5bADwbZAuSz1B47kBOWKCbGd9d09y12bgPO9hzL8FOBIZC2hUl9JOEjvqn3MQYn7vMpfqsxt9VbyC1UVuRFFcN8ZCuJ3ZAyXAMZBZAr4uyBcg6g6FWipKAa4ZAbV5Ep0Ea37ldETqPNvHAZDZD'
 VERIFY_TOKEN = 'xacminh'
 
 # --- KẾT NỐI DATABASE ---
@@ -120,112 +120,118 @@ def get_full_user_state(sender_id):
 
     return row if row else None
 def process_message(sender_id, text):
-    # CHUYỂN LOGIC NÀY LÊN ĐẦU TIÊN
-    # Nếu người dùng muốn thoát luồng hiện tại để chọn lại từ đầu
-    if text.lower() in ['bắt đầu', 'bat dau', 'chào', 'reset', 'làm lại', '🔄 làm lại từ đầu']:
-        clear_user_state(sender_id) # Xóa sạch trạng thái cũ trong DB
-        
-        menu_text = "🤖 Chào bạn! Mời bạn chọn chủ đề quan tâm:"
-        topics = ["Kỹ thuật máy tính", "Thế giới động vật", "Tư vấn điện thoại", "Tư vấn thời trang", "Tư vấn ẩm thực"]
-        
-        # Gửi menu kèm nút bấm
-        send_message(sender_id, menu_text, options=topics)
-        
-        # Khởi tạo lại session ở trạng thái chờ chọn chủ đề (trang_thai = 0)
-        conn = connect_db(); cursor = conn.cursor()
-        cursor.execute("""
-            INSERT INTO UserSessions (fb_user_id, id_chude_dang_chon, id_cauhoi_vua_tl, trang_thai) 
-            VALUES (%s, NULL, NULL, 0)
-            ON DUPLICATE KEY UPDATE trang_thai=0, id_chude_dang_chon=NULL, id_cauhoi_vua_tl=NULL
-        """, (sender_id,))
-        conn.commit(); cursor.close(); conn.close()
-        return
 
-    # Sau đó mới lấy trạng thái hiện tại để xử lý tiếp
     user_state = get_full_user_state(sender_id)
 
-    # --- 2. KHỞI TẠO SESSION (LẦN ĐẦU CHAT) ---
-    if user_state is None:
-        topics = ["Kỹ thuật máy tính", "Thế giới động vật", "Tư vấn điện thoại", "Tư vấn thời trang", "Tư vấn ẩm thực"]
-        send_message(sender_id, "🤖 Chào bạn! Hãy chọn chủ đề bạn quan tâm:", options=topics)
-        
-        conn = connect_db(); cursor = conn.cursor()
-        # Lưu trang_thai = 0 để Bot biết bước tiếp theo là xử lý chọn chủ đề
+    # =========================
+    # BẮT ĐẦU CHAT
+    # =========================
+    if user_state is None or text.lower() in ['bắt đầu', 'bat dau', 'chào']:
+
+        conn = connect_db()
+        cursor = conn.cursor()
+
         cursor.execute("""
-            INSERT INTO UserSessions (fb_user_id, id_chude_dang_chon, id_cauhoi_vua_tl, trang_thai) 
+            INSERT INTO UserSessions 
+            (fb_user_id, id_chude_dang_chon, id_cauhoi_vua_tl, trang_thai)
             VALUES (%s, NULL, NULL, 0)
-            ON DUPLICATE KEY UPDATE trang_thai=0, id_chude_dang_chon=NULL, id_cauhoi_vua_tl=NULL
+            ON DUPLICATE KEY UPDATE
+            trang_thai = 0,
+            id_chude_dang_chon = NULL,
+            id_cauhoi_vua_tl = NULL
         """, (sender_id,))
-        conn.commit(); cursor.close(); conn.close()
+
+        conn.commit()
+        cursor.close()
+        conn.close()
+
+        menu = """
+🤖 Chào bạn! Hãy chọn chủ đề:
+
+1️⃣ Kỹ thuật máy tính
+2️⃣ Thế giới động vật
+3️⃣ Tư vấn điện thoại
+4️⃣ Tư vấn thời trang
+
+👉 Hãy nhập số 1 - 4
+"""
+
+        send_message(sender_id, menu)
         return
 
-    # Giải nén thông tin trạng thái
+    # =========================
+    # LẤY THÔNG TIN USER
+    # =========================
     id_chude = user_state[0]
     current_q_id = user_state[1]
     trang_thai = user_state[2]
 
-    # --- 3. XỬ LÝ KHI USER ĐANG CHỌN CHỦ ĐỀ (Trạng thái 0) ---
+    # =========================
+    # USER ĐANG CHỌN CHỦ ĐỀ
+    # =========================
     if trang_thai == 0:
+
         topic_mapping = {
-            "Kỹ thuật máy tính": (1, 101),
-            "Thế giới động vật": (2, 201),
-            "Tư vấn điện thoại": (3, 301),
-            "Tư vấn thời trang": (4, 401),
-            "Tư vấn ẩm thực": (5, 501)
+            "1": (1, 101),
+            "2": (2, 201),
+            "3": (3, 301),
+            "4": (4, 401)
         }
 
         if text not in topic_mapping:
-            # Nếu user gõ chữ khác, gửi lại danh sách chủ đề
-            send_message(sender_id, "❌ Vui lòng chọn một chủ đề hợp lệ bên dưới:", options=list(topic_mapping.keys()))
+            send_message(sender_id, "❌ Vui lòng nhập số từ 1 đến 4.")
             return
 
         selected_topic, first_question = topic_mapping[text]
 
-        # Cập nhật DB: Chuyển sang trang_thai = 1 (đang trả lời câu hỏi)
-        conn = connect_db(); cursor = conn.cursor()
+        conn = connect_db()
+        cursor = conn.cursor()
+
         cursor.execute("""
-            UPDATE UserSessions 
-            SET id_chude_dang_chon = %s, id_cauhoi_vua_tl = %s, trang_thai = 1 
+            UPDATE UserSessions
+            SET id_chude_dang_chon = %s,
+                id_cauhoi_vua_tl = %s,
+                trang_thai = 1
             WHERE fb_user_id = %s
         """, (selected_topic, first_question, sender_id))
+
         conn.commit()
 
-        # Lấy nội dung câu hỏi đầu tiên và các lựa chọn của nó
-        cursor.execute("SELECT noi_dung FROM Questions WHERE id_cauhoi = %s", (first_question,))
-        q_text = cursor.fetchone()[0]
-        cursor.execute("SELECT gia_tri_tra_loi FROM Rules WHERE id_cauhoi_ht = %s", (first_question,))
-        q_options = [row[0] for row in cursor.fetchall()]
-        
-        cursor.close(); conn.close()
-        # GỬI CÂU HỎI ĐẦU TIÊN KÈM NÚT BẤM
-        send_message(sender_id, q_text, options=q_options)
+        cursor.execute("""
+            SELECT noi_dung
+            FROM Questions
+            WHERE id_cauhoi = %s
+        """, (first_question,))
+
+        question = cursor.fetchone()[0]
+
+        cursor.close()
+        conn.close()
+
+        send_message(sender_id, question)
         return
 
-    # --- 4. XỬ LÝ KHI ĐANG CHAT SUY DIỄN (Trạng thái 1) ---
+    # =========================
+    # ĐANG CHAT SUY DIỄN
+    # =========================
     result = xuly_cau_tra_loi(current_q_id, text)
 
     if result["type"] == "question":
+
         set_user_state(sender_id, result["id"])
-        
-        # Lấy các lựa chọn cho câu hỏi tiếp theo
-        conn = connect_db(); cursor = conn.cursor()
-        cursor.execute("SELECT gia_tri_tra_loi FROM Rules WHERE id_cauhoi_ht = %s", (result["id"],))
-        next_options = [row[0] for row in cursor.fetchall()]
-        cursor.close(); conn.close()
-        
-        send_message(sender_id, result["content"], options=next_options)
+        send_message(sender_id, result["content"])
 
     elif result["type"] == "conclusion":
+
         clear_user_state(sender_id)
-        send_message(sender_id, result["content"] + "\n\n✅ Tư vấn xong. Nhấn nút dưới để bắt đầu lại.", options=["Bắt đầu lại"])
-    
+
+        send_message(
+            sender_id,
+            result["content"] + "\n\n👉 Gõ 'Bắt đầu' để chọn chủ đề mới."
+        )
+
     else:
-        # Trường hợp user nhập sai đáp án gợi ý
-        conn = connect_db(); cursor = conn.cursor()
-        cursor.execute("SELECT gia_tri_tra_loi FROM Rules WHERE id_cauhoi_ht = %s", (current_q_id,))
-        valid_options = [row[0] for row in cursor.fetchall()]
-        cursor.close(); conn.close()
-        send_message(sender_id, "⚠️ Vui lòng chọn đáp án đúng:", options=valid_options)
+        send_message(sender_id, result["content"])
 #sử đến đây là 
 
 # def process_message(sender_id, text):
@@ -249,34 +255,11 @@ def process_message(sender_id, text):
 #     else:
 #         send_message(sender_id, result["content"])
 
-def send_message(recipient_id, text, options=None):
+def send_message(recipient_id, text):
     params = {"access_token": PAGE_ACCESS_TOKEN}
     headers = {"Content-Type": "application/json"}
-    message_data = {"text": text}
-    # Mới
-    if options:
-        quick_replies = []
-        for option in options:
-            quick_replies.append({
-                "content_type": "text",
-                "title": option,        # Chữ hiển thị trên nút
-                "payload": option       # Giá trị gửi về Bot khi bấm
-            })
-        # Luôn thêm một nút "Quay lại Menu" để khách chọn lại từ đầu bất cứ lúc nào
-        quick_replies.append({
-            "content_type": "text",
-            "title": "🔄 Làm lại từ đầu",
-            "payload": "RESET_CHAT"
-        })    
-        message_data["quick_replies"] = quick_replies
-
-    data = {
-        "recipient": {"id": recipient_id},
-        "message": message_data
-    }
-    response = requests.post("https://graph.facebook.com/v19.0/me/messages", 
-                             params=params, headers=headers, json=data)
-    return response.json()
+    data = {"recipient": {"id": recipient_id}, "message": {"text": text}}
+    requests.post("https://graph.facebook.com/v19.0/me/messages", params=params, headers=headers, json=data)
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)
